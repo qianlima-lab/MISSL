@@ -1,0 +1,61 @@
+model:
+  backbone:
+    class_path: src.models.MISSL
+    init_args:
+      max_len: 50
+      d_model: 16
+      n_head: 2
+      n_b: 4
+      dropout: 0.2
+      n_layer: 2
+      num_items: 99037
+      buy: 2
+      intent_num: 64
+      nb: 24
+      hhgt_num_head: 2
+      hhgt_num_layer: 2
+      epsilon: 1.0
+      sim: 'cos'
+      temp: 1.0
+      item_beh_lambda: 0.01
+      next_item_lambda: 1.0
+      next_beh_lambda: 0.5
+      inter_intent_lambda: 0.01
+      intra_intent_lambda: 0.01
+      weight: 1e-4
+      cl_sample_rate: 0.2
+
+data:
+  dataset_code: 'retail'
+  target_behavior: 'buy'
+  multi_behavior: True
+  min_uc: 3
+  num_items: 99037
+  max_len: 50
+  mask_prob: 0.7
+  num_workers: 4
+  val_negative_sampler_code: random
+  val_negative_sample_size: 99
+  train_batch_size: 128
+  val_batch_size: 128
+  predict_only_target: False
+
+trainer:
+  default_root_dir: logs/retail/missl
+  callbacks:
+    - class_path: pytorch_lightning.callbacks.EarlyStopping
+      init_args:
+        monitor: 'Val:NDCG@10'
+        patience: 10
+        mode: max  
+  gpus: [0]
+  accelerator: ddp
+  accumulate_grad_batches: 1
+  fast_dev_run: 0
+seed_everything: 42
+  
+optimizer:
+  class_path: torch.optim.Adam
+  init_args:
+    lr: 0.001
+    weight_decay: 0.000001
