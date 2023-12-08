@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-# MISSL
-The official pytorch implementation of our proposed model MISSL (ICDE-24).
-
-coming soon!
-=======
 # When Multi-Behavior Meets Multi-Interest: Multi-Behavior Sequential Recommendation with Multi-Interest Self-Supervised Learning
 
 This is the official code for our proposed model **MISSL** (ICDE-24). The code is built upon [MB-STR](https://github.com/yuanenming/mb-str).
@@ -42,4 +36,3 @@ Run on  `Yelp`  with a `yaml` configuration file like following:
 python run.py fit --config src/configs/yelp/yelp_missl.yaml
 ```
 
->>>>>>> 5bce5cc (readme update)
